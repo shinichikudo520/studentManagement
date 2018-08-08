@@ -8,7 +8,7 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
+var webpack=require('webpack');
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
@@ -27,6 +27,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'assets': path.resolve(__dirname, '../src/assets'),  
+      'jquery': "jquery/src/jquery"  
     }
   },
   module: {
@@ -78,5 +80,13 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  
+plugins: [
+    new webpack.ProvidePlugin({
+      $:"jquery",
+      jQuery:"jquery",
+      "windows.jQuery":"jquery"
+    })
+  ]
 }
